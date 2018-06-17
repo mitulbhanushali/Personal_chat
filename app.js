@@ -7,7 +7,6 @@ var SocketFilter=require("./SocketFilter");
 
 
 server.listen(9800,()=>{
-
   console.log("server is running on 9800")  ;
 });
 //app.use(Session({secret:'afae'}));
