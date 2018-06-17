@@ -1,0 +1,57 @@
+<html>
+
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<body>
+
+
+
+<div id="dismsg"> </div>
+<form id="msgform">
+	<input type="text" name="msg" id="msg">
+  	<input type="text" name="userid" id="userid">
+	<input type="button" value="Send" onclick="SendMsg();">
+</form>
+
+<script>
+var socket=io.connect();
+
+    socket.emit("addUser",{
+      username:window.location.href.split(':')[2].split('/')[1]
+    });
+
+
+        socket.on('new msg',function(data){
+            var oldconvo=document.getElementById("dismsg").innerHTML;
+            document.getElementById("dismsg").innerHTML=oldconvo+"<br>"+data;
+        });
+
+        socket.on("send status",function(data){
+          alert(data);
+        });
+
+
+
+</script>
+
+<script type="text/javascript">
+
+
+  function SendMsg(){
+    var $msgform=document.getElementById('msgform');
+    var $userid=document.getElementById('userid');
+    var $msg=document.getElementById('msg');
+    var $dismsg=document.getElementById('dismsg');
+
+
+    alert($userid.value);
+      socket.emit('sendMessage', {user_id:$userid.value,msg:$msg.value});
+      $msg.value="";
+      $userid.value="";
+    return false;
+
+
+
+  }
+
+</script>
+</html>
